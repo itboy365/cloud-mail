@@ -58,6 +58,11 @@ jobs:
         run: pnpm install --frozen-lockfile
         working-directory: ./mail-worker
 
+      # ===== 新增步骤：安装前端依赖 =====
+      - name: 📦 安装前端依赖 / Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: ./mail-vue
+
       - name: 📡 禁用 Wrangler 遥测 / Disable wrangler telemetry
         working-directory: ./mail-worker
         run: pnpm wrangler telemetry disable
@@ -69,7 +74,7 @@ jobs:
           echo "🔐 Starting environment setup..."
           
           if [ -z "$JWT_SECRET" ] || grep -q '[?%#/\\]' <<< "$JWT_SECRET"; then
-            echo "❌ JWT_SECRET variable is empty or contains invalid characters (?, %, #, /, \\)."
+            echo "❌ JWT_SECRET variable is empty or contains invalid characters (?, %, #, /, \)."
             exit 1
           fi
           

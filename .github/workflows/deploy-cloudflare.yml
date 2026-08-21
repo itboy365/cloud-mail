@@ -225,7 +225,7 @@ jobs:
         working-directory: ./mail-worker
         run: |
           echo "🚀 Starting deployment..."
-          pnpm wrangler deploy -c wrangler-action.toml 2>&1 \
+          pnpm wrangler deploy -c wrangler-action.toml --assets=../mail-vue/dist 2>&1 \
             | tee deploy.log \
             | grep -v "https://.*\.workers\.dev" \
             | sed -E 's/env\.domain .*/env.domain (***)/' \
